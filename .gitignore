@@ -3,3 +3,7 @@ __pycache__/
 *.pyc
 .DS_Store
 .ipynb_checkpoints/
+
+# PhysioNet restricted data — do NOT commit (license clause 3: no redistribution)
+dataset/
+dataset_parquet/

@@ -26,11 +26,11 @@ Specification in `docs/hero_figure_spec.md`. Correctness in Panel B comes from S
 
 ### 3. Emergency fast-track enabled for Student 3
 
-Student 3 (WP6) begins productive work on Monday using synthetic data, ahead of the plan's week-0–4 "synthetic pipelines" milestone. This is **not** a change to WP6's scope; it is a change to its start timing. The justification follows plan §7, which explicitly designed a synthetic-data track "S3: Conformal layer running on synthetic data" for weeks 1–2. We move that into week 0 so the longest-runway WP starts first. Day-by-day plan in `docs/onboarding_student3.md`.
+Student 3 (WP6) begins productive work immediately using synthetic data, ahead of the plan's week-0–4 "synthetic pipelines" milestone. This is **not** a change to WP6's scope; it is a change to its start timing. The justification follows plan §7, which explicitly designed a synthetic-data track "S3: Conformal layer running on synthetic data" for weeks 1–2. We move that into week 0 so the longest-runway WP starts first. Milestone-ordered plan in `docs/onboarding_student3.md`.
 
-### 4. Synthetic data generator promoted from "optional week 1–2" to "Day 2 deliverable"
+### 4. Synthetic data generator promoted from "optional week 1–2" to Milestone-2 deliverable
 
-Plan §11 ("Optional: Synthetic Simulation Study") framed a 200–1,000-participant simulation as optional. This amendment narrows the scope to a 42-participant **development harness** — smaller, deterministic, shaped to exercise the WP6 code path — and promotes it to a week-1 deliverable, owned by Student 3, committed to `synthetic/v1/`. Reference implementation: `synthetic/generator.py` and `synthetic/validate_contract.py`. The larger §11 simulation study (200–1,000 synthetic users for "would this work at larger n?") remains optional and unchanged.
+Plan §11 ("Optional: Synthetic Simulation Study") framed a 200–1,000-participant simulation as optional. This amendment narrows the scope to a 42-participant **development harness** — smaller, deterministic, shaped to exercise the WP6 code path — and promotes it to a Milestone-2 deliverable in Student 3's onboarding, committed to `synthetic/v1/`. Reference implementation: `synthetic/generator.py` and `synthetic/validate_contract.py`. The larger §11 simulation study (200–1,000 synthetic users for "would this work at larger n?") remains optional and unchanged.
 
 ### 5. Claims boundary formalized as a signed document
 
