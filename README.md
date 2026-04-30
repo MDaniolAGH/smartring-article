@@ -1,84 +1,170 @@
-# How Much Data Is Enough? — Abstention-Aware Menstrual Cycle Inference from Wearable Sensors
+# How Much Data Is Enough?
 
-A conformal-prediction framework with reject option for hormone-anchored menstrual phase inference, built on the mcPHASES dataset (Lin et al. 2026).
+**Abstention-aware menstrual cycle inference from wearable sensors** — a conformal-prediction framework with reject option, built on the [mcPHASES](https://physionet.org/content/mcphases/1.0.0/) dataset.
 
-## Team
+---
 
-- **Supervisor:** M. Danioł
-- **Student 1:** WP2 / WP3 — Data audit, preprocessing, endpoint construction
-- **Student 2:** WP5 — Base classifier and fixed-rule / oracle baselines
-- **Student 3:** WP6 — Covariate-conditional sufficiency model (core contribution)
-- **Student 4:** WP7 — Statistics, calibration, robustness
+## Status
 
-Roles are assigned from: U. Dulak, P. Rogala, M. Kuśnierz, M. Szmigiel.
+- **Conference deadline: 2026-05-07** — student conference. Scope: Round-2 subcohort (n≈19), one figure, one comparison table.
+- **Journal target: weeks 8–12 of plan v4.0** — JMIR mHealth, npj Women's Health, J Biomedical Informatics. Full cohort (n=42), full method.
 
-## Scientific question
+The conference version is a focused subset of the journal version. Both share the same code, contracts, and pipeline.
 
-How much wearable data is sufficient for stable hormone-anchored menstrual cycle phase inference, and does the sufficiency threshold vary across individuals in ways that can be predicted from observable signal characteristics?
+---
 
-See `research_plan_v4.pdf` Section 2.1. The central claim is that an uncertainty-aware framework with abstention improves menstrual phase inference compared with fixed-window rules.
+## Start here
 
-## Target venues
+### If you are joining the team
 
-- JMIR mHealth and uHealth (best fit)
-- npj Women's Health
-- J Biomedical Informatics
-- ML4H / ACM CHIL (workshop backup)
+1. **Read the onboarding note** (Polish): [`docs/notatka_dla_zespolu_pl.md`](docs/notatka_dla_zespolu_pl.md). It is the single document the whole team reads first. It explains the method, lists what is in the repo, gives a procedure for the first two hours of work, and lists per-role tasks for the May 7 deadline.
+2. **Set up the environment** (commands below).
+3. **Run two notebooks** to confirm everything works:
+   - `notebooks/00_getting_started.ipynb` — orientation
+   - `notebooks/06_dataset_loading.ipynb` — the unified data loader
+4. **Open the notebook for your role**:
+   - `01_wp2_preprocessing.ipynb` — preprocessing, valid-night filter, cohort, LOSO folds
+   - `02_wp3_endpoint.ipynb` — hormone-anchored endpoint, tiered-confidence labels
+   - `03_wp5_baselines.ipynb` — base classifier + fixed-rule baselines
+   - `04_wp6_conformal.ipynb` — conformal prediction (the paper's core contribution)
+   - `05_wp7_evaluation.ipynb` — metrics, bootstrap CIs, calibration
+
+You should not need to read every document in `docs/` to start. The notebooks point you at the docs you need when you need them.
+
+### Setup
+
+```bash
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+python synthetic/generator.py --out synthetic/v1 --seed 42 --validate
+```
+
+The third command verifies the install: it generates the synthetic bundle and runs the contract validator. Exit 0 means everything is wired correctly.
+
+For real data, see "Data" below.
+
+---
 
 ## Repository layout
 
 ```
-docs/                         WP1 documents (read these first)
-  data_contract_v1.md         Interface between WP2/WP3/WP5 and WP6
-  student3_charter.md         Student 3's one-page role card
-  onboarding_student3.md      Day-1 to Day-3 plan for Student 3
-  claims_boundary.md          What we claim and what we do not claim
-  hero_figure_spec.md         Three-panel contribution figure (Figure 1)
-  gap_statement.md            Literature gap paragraph + citation audit
-  plan_v4.1_changelog.md      WP1 amendments on top of plan v4.0
-  tutorial_summaries/         Template for Angelopoulos & Bates summaries
-src/                          Real analysis code (populated from week 2)
-synthetic/                    Synthetic data generator (Student 3's regression suite)
-  generator.py                Produces three parquet files matching the contract
-  validate_contract.py        Schema / referential-integrity validator
-  v1/                         Generated outputs (created on first run)
-tests/                        Unit tests (populated from week 2)
-dataset/                      mcPHASES raw tables (PhysioNet, read-only)
-research_plan_v4.pdf          Source of truth — all decisions trace back here
+README.md                       This file
+research_plan_v4.pdf            Project plan (frozen; amendments in docs/plan_v4.1_changelog.md)
+requirements.txt                Pinned Python dependencies
+
+docs/                           Documentation
+  notatka_dla_zespolu_pl.md     Polish onboarding note (start here)
+  data_contract_v1.md           Schemas of the three input parquet files
+  pipeline_contract_v1.md       Schemas of every parquet file in the pipeline
+  student3_charter.md           Conformal-prediction role specification
+  onboarding_student3.md        Milestone-ordered plan for the conformal role
+  claims_boundary.md            What we claim and what we do not claim
+  gap_statement.md              Literature gap + citation audit
+  hero_figure_spec.md           Figure 1 design (three panels)
+  plan_v4.1_changelog.md        Amendments to the frozen plan
+  tutorial_summaries/           Conformal-prediction tutorial template
+  s44294-025-00078-8.pdf        Kilungeja et al. 2025 (direct comparator)
+  s41597-026-06805-3-1.pdf      Lin et al. 2026 (mcPHASES dataset paper)
+
+notebooks/                      Per-role starter notebooks (all run end-to-end)
+  00_getting_started.ipynb      Environment + data_table + peek/summary helpers
+  01_wp2_preprocessing.ipynb    Preprocessing pipeline starter
+  02_wp3_endpoint.ipynb         Endpoint construction starter
+  03_wp5_baselines.ipynb        Base classifier + baselines starter
+  04_wp6_conformal.ipynb        Conformal sufficiency layer (working reference)
+  05_wp7_evaluation.ipynb       Evaluation harness starter
+  06_dataset_loading.ipynb      Unified data loader tutorial
+
+utils/                          Library code
+  dataset.py                    load_mcphases() — the team-wide data loader
+  preview.py                    peek() and summary() helpers
+
+synthetic/                      Synthetic data generator + validator
+  generator.py                  Deterministic synthetic bundle (seed=42)
+  validate_contract.py          Schema and referential-integrity validator
+  v1/                           Generated bundle (committed; regression test fixture)
+
+scripts/
+  convert_raw_to_parquet.py     One-off raw-CSV → parquet conversion (Colab-friendly)
+
+src/                            Real-pipeline production code (populated as WPs progress)
+tests/                          Test suite (populated alongside src/)
+
+dataset/                        mcPHASES raw CSVs (gitignored — see Data below)
+dataset_parquet/                Parquet conversions of large CSVs (gitignored)
 ```
+
+---
+
+## Data
+
+The mcPHASES dataset is on PhysioNet under the **Restricted Health Data License**. Each team member must obtain their own access through the PhysioNet project page; the data **must not be redistributed**.
+
+**Place raw CSVs in `dataset/`, then convert the large ones once:**
+
+```bash
+python scripts/convert_raw_to_parquet.py
+```
+
+This writes ~338 MB of compressed parquet (down from 3.4 GB of CSV) for the nine files >10 MB. Smaller CSVs stay as CSV — they are short enough to inspect by hand. The conversion runs in ~30 seconds on a laptop and is idempotent.
+
+**On Colab:** mount Drive, place the dataset folder there, then run the same conversion command. Subsequent loads from `utils/dataset.py` finish in seconds even on the free tier. Loading the raw `heart_rate.csv` (1.9 GB) directly will exceed Colab's RAM.
+
+`dataset/` and `dataset_parquet/` are gitignored.
+
+---
+
+## Loading data — one pattern for everyone
+
+```python
+from utils.dataset import setup, load_mcphases
+
+setup()                  # mounts Google Drive on Colab; no-op locally
+data = load_mcphases()   # auto-detects path; loads small tables eagerly
+
+hormones = data['hormones_and_selfreport']     # small table
+hr_p18 = data.load('heart_rate',
+                   participant_id=18,
+                   columns=['day_in_study', 'bpm'])  # large; columns + filter pushed to disk
+```
+
+The loader normalizes column names to lowercase and renames `id` to `participant_id` to match the pipeline contract. Full walkthrough in `notebooks/06_dataset_loading.ipynb`.
+
+---
+
+## Three rules that appear in every draft
+
+These are non-negotiable. They appear verbatim in the role charters and the claims boundary because the most common reviewer attack is a sloppy claim about coverage or personalization.
+
+1. **"Empirical coverage, validated via LOSO-CV"** — never "conformal guarantees coverage."
+2. **"Covariate-conditional sufficiency estimation"** — never "individual-level personalization."
+3. **No new methods.** Mondrian conformal + APS + a regression meta-model is the entire methodological toolkit. Scope-creep requests go to the supervisor.
+
+---
 
 ## Authoritative documents
 
-- **`research_plan_v4.pdf`** — plan v4.0 (March 2026). Frozen; amendments live in the changelog.
-- **`docs/plan_v4.1_changelog.md`** — amendments agreed during WP1.
-- **`docs/data_contract_v1.md`** — Student 3 builds against this for 8 weeks.
+When two documents disagree:
 
-When those three disagree, the changelog wins over the plan, and the data contract wins for interface matters.
+- `docs/pipeline_contract_v1.md` wins on file schemas
+- `docs/plan_v4.1_changelog.md` wins over `research_plan_v4.pdf` (the PDF is frozen)
+- `docs/claims_boundary.md` wins on what we say in the paper
 
-## Running the synthetic generator
-
-```bash
-pip install --break-system-packages pandas numpy pyarrow
-python synthetic/generator.py --out synthetic/v1 --seed 42
-python synthetic/validate_contract.py --dir synthetic/v1
-```
-
-The generator produces `probability_table.parquet`, `labels.parquet`, and `covariates.parquet` in `synthetic/v1/`. The validator exits non-zero on any contract violation.
-
-Student 3 uses these outputs to build the conformal layer before real data is available, and keeps them permanently as a regression test suite.
-
-## Real data
-
-The mcPHASES raw CSVs live in `dataset/` (PhysioNet v1.0.0, n=42). Access is in progress; WP2/WP3 will build a reproducible pipeline from these tables in weeks 0–4. Until then, synthetic data is the development target.
-
-## Three non-negotiable language rules
-
-These appear verbatim in the charter, onboarding, and claims boundary. They matter because the paper will be read by reviewers who have seen overclaimed conformal-prediction papers before.
-
-1. Never write "conformal guarantees coverage" — always "empirical coverage, validated via LOSO-CV."
-2. Never say "individual-level personalization" — always "covariate-conditional sufficiency estimation."
-3. No new baselines or methods beyond Mondrian conformal + APS + regression meta-model. Scope-creep requests go to supervisor.
+---
 
 ## Reproducibility
 
-Every result in the final paper must be reproducible from this repo with a single command. Seeds fixed. LOSO folds generated once (WP2) and never re-split. Experiments logged with date, config hash, metrics, and responsible person.
+- Single command per result. Seeds fixed.
+- LOSO folds frozen once in WP2, never re-split.
+- Synthetic bundle (`synthetic/v1/`) committed and used as a regression fixture.
+- Conference-version reproducibility package shipped at submission time.
+
+The PhysioNet license forbids redistributing data, so reproducing the *real* results requires the consumer to register and download mcPHASES themselves. Reproducing on synthetic data needs only this repository plus `requirements.txt`.
+
+---
+
+## Asking for help
+
+Technical questions (something does not run, an error message, a path issue) go to whichever async channel the team uses. Methodological questions (whether to add a method, how to interpret a result, how to frame a claim) go to the supervisor before any code is written.
+
+The most common first-day issues and their fixes are at the bottom of `docs/notatka_dla_zespolu_pl.md`.

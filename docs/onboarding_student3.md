@@ -1,6 +1,11 @@
 # Onboarding — Student 3 (WP6)
 
-Welcome to the project. You are being fast-tracked, starting ahead of most WP6 plans, because your contribution — the covariate-conditional sufficiency model — has the longest runway in the paper (plan §7, weeks 0–8). The synthetic-data track in plan §7 ("WP1 + WP2 + synthetic pipelines, weeks 1–2") was designed exactly for this: you build against a contract, not against the real data, so you do not wait for Students 1 and 2 to finish. Three milestones (below) unblock you for five-plus weeks of productive work independent of upstream delays. Work the milestones in order; the order is fixed, the calendar is not.
+Welcome to the project. You are being fast-tracked because your contribution — the covariate-conditional sufficiency model — has the longest runway in the journal-paper plan (plan §7, weeks 0–8). The synthetic-data track in plan §7 was designed exactly for this: you build against a contract, not against the real data, so you do not wait for Students 1 and 2 to finish. Three milestones (below) unblock you for the rest of the project independent of upstream delays. Work the milestones in order; the order is fixed.
+
+**Two timelines apply to your work:**
+
+1. **Conference deadline 2026-05-07** — short paper or poster on the Round-2 subcohort (n≈19). Conference-specific scope and 9-day plan in `docs/notatka_dla_zespolu_pl.md` (Polish). Milestones 1–3 below cover this.
+2. **Journal-paper plan** — full method (Mondrian stratification, regression meta-model, longitudinal transfer) on the full cohort. This is the post-conference work, weeks 4–12 per plan §7.
 
 ---
 
@@ -64,17 +69,16 @@ Welcome to the project. You are being fast-tracked, starting ahead of most WP6 p
 
 ## Milestone 3 — First conformal layer on synthetic data (unblock gate)
 
-This is the milestone that unblocks you for five-plus weeks.
+This is the milestone that unblocks you for the rest of the project — both the conference deadline and the journal-paper work.
 
-1. Load `synthetic/v1/probability_table.parquet` and `labels.parquet`.
-2. For each held-out participant (LOSO on the synthetic 42):
-   - Compute APS non-conformity scores s(x, y) = 1 − p̂(y|x) on the remaining 41 participants' rows.
-   - Compute the conformal quantile q̂ at level ⌈(n+1)(1−α)⌉ / n with α = 0.10.
-   - For each cumulative night k in the held-out participant's trajectory, construct the prediction set C_α(x_i^{1:k}) = { y : p̂(y | x_i^{1:k}) ≥ 1 − q̂ }.
-   - Record |C_α| at each k.
-3. Plot |C_α| vs. cumulative-k for a representative sample of ~10 participants chosen to span the signal-strength Beta distribution (low / medium / high).
-4. Save to `docs/figures/student3_m3_sufficiency_curves.png`.
-5. Send the plot to supervisor with a one-paragraph note: do τᵢ values look visibly heterogeneous across participants? (If yes, you are on track. If no, the generator is wrong — fix it before writing the real conformal code.)
+**Start here:** open `notebooks/04_wp6_conformal.ipynb`. It is the reference implementation of Milestone 3: loads the three input-contract files, runs split conformal with APS under LOSO and per-k calibration (recipe b), writes `prediction_sets.parquet` + `decisions/covariate_conditional.parquet` + τᵢ entries per the pipeline contract, and produces the |Cα|-vs-k plot. Run it, then re-implement it yourself.
+
+Your Milestone 3 gate (what you send to supervisor):
+
+1. Confirm you can explain, in your own words, *why* recipe (b) — per-cumulative-k calibration — was chosen over the pooled alternative (recipe a) and the final-k alternative (recipe c). See the notebook's §3 rationale and the pipeline contract's open-item list.
+2. Produce the |Cα|-vs-k plot for ~10 representative participants spanning the signal-completeness range. Save to `docs/figures/student3_m3_sufficiency_curves.png`.
+3. Report τᵢ distribution: median, IQR, number of non-convergers. Do values look visibly heterogeneous across participants? (If yes, you are on track. If not, the issue is either the generator parameters or the recipe — discuss before moving on.)
+4. Send the plot + one-paragraph note to supervisor.
 
 **What "sensible" looks like on the plot.**
 - Most curves start at |C_α| = 2 (both classes plausible), drop to |C_α| = 1 at some k (sufficiency), and stay there.

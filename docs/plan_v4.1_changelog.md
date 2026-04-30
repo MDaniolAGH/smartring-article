@@ -38,7 +38,32 @@ Plan §1.2 listed five boundary-of-claims bullets. `docs/claims_boundary.md` exp
 
 ### 6. All other sections of plan v4.0 remain in force
 
-Unchanged: §1.3 (success/failure criteria), §2.1 (research question), §2.3 (formal definition of sufficiency), §2.4 (conformal-in-temporal-setting honesty), §2.5 (Kilungeja differentiation table — verification of this table is the week-2 top priority; see `docs/gap_statement.md`), §3 all subsections, §4 all subsections, §5–§8, §9, §10 (risks), §12 (expected outputs), §13 (core message).
+Unchanged: §1.3 (success/failure criteria), §2.1 (research question), §2.3 (formal definition of sufficiency), §2.4 (conformal-in-temporal-setting honesty), §2.5 (Kilungeja differentiation table — see amendment 7 below for the dataset correction), §3 all subsections, §4 all subsections, §5–§8, §9, §10 (risks), §12 (expected outputs), §13 (core message).
+
+### 7. Kilungeja et al. 2025 dataset clarification (verified 2026-04-23)
+
+Plan §1.5 note "Kilungeja et al. 2025 used same dataset" is **factually incorrect**. After reading the paper end-to-end (`docs/s44294-025-00078-8.pdf`), confirmed:
+
+- Kilungeja's data: University of North Florida in-house collection, Empatica E4 + EmbracePlus wristbands, n=18 ovulatory subjects, 65 cycles, LH-strip ground truth.
+- mcPHASES (our data): n=42, Fitbit Sense + Dexcom G6 + Mira Plus, full hormone panel for 20 R2 participants.
+
+These are **different datasets**. Consequences:
+
+- Plan §10 risk "Kilungeja differentiation unclear" downgraded from **High** to **Low**.
+- Plan §2.5 differentiation table holds on every row; differentiation now stronger because dataset itself differs. Optional new "Dataset" row in the table makes this explicit.
+- Plan §4 "Direct comparators" assignment for Kilungeja remains valid — it is still a direct comparator on the task (machine-learning menstrual phase classification from wearable signals), just not on the dataset.
+
+Citation status in `docs/gap_statement.md` updated from UNVERIFIED to VERIFIED for this entry.
+
+### 8. Conference-version scope (target: student conference 2026-05-07)
+
+Before the journal-paper version (target submission: weeks 8–12 per plan §7), we ship a **conference-version subset** at a student conference. Scope on a 9-day budget:
+
+- Restrict to Round-2 subcohort (n≈19) — clean LH + progesterone-metabolite endpoint, no tiered-confidence labeling needed.
+- One figure (sufficiency curves), one table (Fixed-5 vs covariate-conditional), one short paper or poster.
+- Skip Mondrian stratification, regression meta-model for τᵢ, longitudinal R1→R2 transfer, oracle-global and signal-quality baselines. Skip pre-registration deposit, Docker, CI/CD until after the conference.
+
+Conference scope is documented in `docs/notatka_dla_zespolu_pl.md`. Journal-paper scope (plan §1.3 success criteria, plan §8 mandatory analyses) remains unchanged for the post-conference work.
 
 ---
 

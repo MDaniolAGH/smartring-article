@@ -3,7 +3,12 @@ __pycache__/
 *.pyc
 .DS_Store
 .ipynb_checkpoints/
+.claude
 
 # PhysioNet restricted data — do NOT commit (license clause 3: no redistribution)
 dataset/
 dataset_parquet/
+
+# Supervisor-only material; not distributed to students
+_internal/
+notebooks_from_students/
