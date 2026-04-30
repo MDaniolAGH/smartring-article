@@ -1,11 +1,18 @@
 # Onboarding — Student 3 (WP6)
 
-Welcome to the project. You are being fast-tracked because your contribution — the covariate-conditional sufficiency model — has the longest runway in the journal-paper plan (plan §7, weeks 0–8). The synthetic-data track in plan §7 was designed exactly for this: you build against a contract, not against the real data, so you do not wait for Students 1 and 2 to finish. Three milestones (below) unblock you for the rest of the project independent of upstream delays. Work the milestones in order; the order is fixed.
+You own the covariate-conditional sufficiency model — the journal paper's central contribution. The synthetic-data track in plan §7 was designed so you can build against the data contract before Students 1 and 2 finish their pieces; the three milestones below give you the foundation, after which you join the conference push.
 
-**Two timelines apply to your work:**
+**Two onboarding documents apply:**
 
-1. **Conference deadline 2026-05-07** — short paper or poster on the Round-2 subcohort (n≈19). Conference-specific scope and 9-day plan in `docs/notatka_dla_zespolu_pl.md` (Polish). Milestones 1–3 below cover this.
-2. **Journal-paper plan** — full method (Mondrian stratification, regression meta-model, longitudinal transfer) on the full cohort. This is the post-conference work, weeks 4–12 per plan §7.
+- **This document (English, milestone-ordered)** — covers the foundation: reading, understanding split conformal, running the conformal layer on synthetic data. Work Milestones 1–3 in order.
+- **`docs/notatka_dla_zespolu_pl.md` (Polish, day-by-day)** — once Milestone 3 is done, the conference push (deadline **2026-05-07**) follows the day-by-day schedule in that document. The notatka also covers the per-role plans for Students 1, 2, and 4.
+
+**Two timelines apply:**
+
+1. **Conference deadline 2026-05-07** — short paper or poster on the Round-2 subcohort (n≈19). Day-by-day plan in the notatka.
+2. **Journal-paper plan** — full method (Mondrian stratification, regression meta-model, longitudinal transfer) on the full cohort. Post-conference; spec in `docs/student3_charter.md`.
+
+Both timelines use the same code, contracts, and notebooks. The conference version is a focused subset of the journal version.
 
 ---
 
@@ -21,7 +28,7 @@ Welcome to the project. You are being fast-tracked because your contribution —
    - §2.5 (differentiation from Kilungeja et al. 2025)
    - §3.3 (uncertainty quantification layer)
    - §3.4 (covariate-conditional sufficiency estimation — your core method)
-2. `docs/student3_charter.md` — pin it above your desk.
+2. `docs/student3_charter.md` — keep open while you read; it sets the role and the three language rules.
 3. `docs/data_contract_v1.md` — this is your sole interface with upstream WPs. You will read nothing from the `dataset/` folder directly. If a column you want is not in the contract, that is a contract amendment conversation with supervisor, not a workaround.
 4. Angelopoulos & Bates (2021), "A Gentle Introduction to Conformal Prediction and Distribution-Free Uncertainty Quantification," arXiv:2107.07511. Read all of Sections 1–3; skim the rest.
 
@@ -31,7 +38,7 @@ Welcome to the project. You are being fast-tracked because your contribution —
   1. What does split conformal prediction formally guarantee?
   2. What assumption does the guarantee depend on?
   3. Why is that assumption only approximately satisfied in our setting? (Cite plan §2.4 and Stocker et al. 2025.)
-- Hand-sketch the hero figure based on `docs/hero_figure_spec.md`. Photograph, commit the image under `docs/figures/hero_sketch_student3_m1.jpg`. This matters — the plan says the hero figure must be sketched before any modeling begins (plan §1.4, WP1 deliverable 2).
+- Hand-sketch the hero figure based on `docs/hero_figure_spec.md`. Photograph, commit the image under `docs/figures/hero_sketch_student3_m1.jpg`. The plan says the hero figure should be sketched before any modeling begins (plan §1.4, WP1 deliverable 2).
 
 **Gate to Milestone 2.** You can explain, in your own words, why we refuse to claim formal coverage. Tutorial summary and hero sketch are committed.
 
@@ -39,12 +46,11 @@ Welcome to the project. You are being fast-tracked because your contribution —
 
 ## Milestone 2 — Understanding check + synthetic data
 
-**Understanding check (synchronous with supervisor, ~1 hour, scheduled when both are available).**
+**Understanding check (async, via deliverable).**
 
-- Present a toy conformal-prediction example at the whiteboard (pen and paper is fine — 10 minutes, three slides or one diagram).
-  - Show split conformal on a trivial binary classification task: calibration set → quantile of non-conformity scores → prediction set construction at α = 0.10.
-  - State, in a single sentence, the exchangeability assumption and why our setting violates it.
-- Supervisor confirms you can explain it. This is the gate for the rest of Milestone 2. If the explanation is shaky, we slow down and re-read Angelopoulos & Bates §2–§3 together before advancing.
+The tutorial summary written in Milestone 1 is the understanding-check artefact. The supervisor reads it and replies with one of: "good, proceed", "rewrite section X", or "let's discuss before you continue." If the summary explains exchangeability and our setting's violation of it correctly (in your own words, with a citation back to plan §2.4 and Stocker et al. 2025), Milestone 2 work begins.
+
+A second async artefact — a 10-line worked example showing split conformal on a toy binary classifier (calibration set → quantile of non-conformity scores → prediction set at α = 0.10) — can be added to the summary if you want to demonstrate hands-on understanding before touching the synthetic generator. Optional but recommended.
 
 **Build the synthetic generator.**
 
@@ -85,7 +91,10 @@ Your Milestone 3 gate (what you send to supervisor):
 - Some curves drop at k = 5, others at k = 12, others never drop within the observation window (non-convergers).
 - Variation is visible, not subtle. If all curves converge at the same k, the generator's signal_strength distribution is too narrow and you regenerate with wider parameters.
 
-**Gate to WP6 proper.** Supervisor signs off on the plot. You are officially unblocked. The next five weeks build out Mondrian conformal (stratified by covariate group), the regression meta-model for τᵢ, and the decision policy — all against the same synthetic data. Student 2's real base classifier arrives around week 5; by then your code will be tested, parameterized, and ready to swap inputs.
+**Gate to WP6 proper.** Supervisor reviews the plot and confirms you are unblocked. After Milestone 3, work splits along the two timelines:
+
+- **Conference push (to 2026-05-07):** swap synthetic inputs for real-data stand-ins (LH-surge labels for the Round-2 subcohort, simple temperature-mean classifier), run the same conformal layer, ship the |Cα|-vs-k plot and the Fixed-5 comparison table. See `docs/notatka_dla_zespolu_pl.md` for the day-by-day plan.
+- **Journal-paper plan:** build out Mondrian conformal (stratified by covariate group), the regression meta-model for τᵢ, and the full decision policy. Student 2's real base classifier arrives later in the journal-paper schedule; by then your code is tested, parameterized, and ready to swap inputs.
 
 ---
 
@@ -93,10 +102,10 @@ Your Milestone 3 gate (what you send to supervisor):
 
 1. **Do not wait for anyone.** Any upstream input you need that is not yet available is mocked using the synthetic pipeline. Build the fake version, document what you assumed, move on. Only flag as a blocker if the contract itself is ambiguous or if you need a scientific decision from supervisor. "Student 2 hasn't sent me the base classifier yet" is not a blocker in weeks 0–4; the synthetic `p_post_ovulatory` column is the stand-in.
 
-2. **The synthetic data stays in the repo permanently.** It is your regression test suite. Every time you change the conformal layer, you run it against `synthetic/v1/` first and confirm outputs are stable. When the real data arrives, the synthetic suite is how you distinguish "my code is wrong" from "the real data looks different." Do not delete it after week 5.
+2. **The synthetic data stays in the repo permanently.** It is your regression test suite. Every time you change the conformal layer, you run it against `synthetic/v1/` first and confirm outputs are stable. When the real data arrives, the synthetic suite is how you distinguish "my code is wrong" from "the real data looks different." Do not delete it after the conference, and do not delete it after the journal submission either.
 
 3. **Never write "conformal guarantees coverage" — always "empirical coverage."** This rule appears in the charter, here, and in `docs/claims_boundary.md`. It is the single language slip that gets the paper rejected. If you catch yourself writing it in a docstring, a commit message, or a plot title, fix it before pushing.
 
 ---
 
-Questions before or during the milestones go to supervisor by whatever async channel you use (email, Slack, shared doc). Do not sit on them. The synchronous check-in at Milestone 2 is the only scheduled meeting; everything else is async.
+Questions before or during the milestones go to supervisor by whatever async channel you use (email, Slack, shared doc). All gates are async — the supervisor reviews each milestone's deliverable and replies in writing. No scheduled meetings.

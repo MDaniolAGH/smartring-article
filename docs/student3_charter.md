@@ -1,6 +1,6 @@
 # Student 3 — Charter (WP6: Covariate-Conditional Sufficiency Model)
 
-**Pin this above your desk. Everything else is negotiable. This is not.**
+> **Scope.** This charter describes the WP6 role for the **journal-paper plan**. For the conference paper / poster (deadline 2026-05-07) the day-by-day plan is in `docs/notatka_dla_zespolu_pl.md`; the methodological scope there is narrower (no Mondrian stratification, no regression meta-model, R2 subcohort only). Everything below stays in force for the journal version.
 
 ---
 
@@ -97,10 +97,4 @@ Format: one parquet file per output class (e.g., `prediction_sets.parquet`, `tau
 - **Secondary success:** even if the comparison fails, IQR of τᵢ across participants > 2 nights is a publishable negative-result-with-a-finding: "sufficiency varies; fixed rules ignore this."
 - **Clean failure:** no adaptive strategy beats Fixed-5. The paper reframes as "at the resolution of mcPHASES (n=42), fixed rules are sufficient." Still publishable — plan §1.3.
 
-You should be okay with any of these outcomes before you start. If any of them feels unacceptable, talk to supervisor now, not in week 8.
-
----
-
-**Signed:** ______________________  **Date:** __________
-
-Student 3, WP6 owner
+You should be okay with any of these outcomes before you start. If any of them feels unacceptable, talk to supervisor before the conference push starts — not after the journal results land.

@@ -32,9 +32,9 @@ Student 3 (WP6) begins productive work immediately using synthetic data, ahead o
 
 Plan §11 ("Optional: Synthetic Simulation Study") framed a 200–1,000-participant simulation as optional. This amendment narrows the scope to a 42-participant **development harness** — smaller, deterministic, shaped to exercise the WP6 code path — and promotes it to a Milestone-2 deliverable in Student 3's onboarding, committed to `synthetic/v1/`. Reference implementation: `synthetic/generator.py` and `synthetic/validate_contract.py`. The larger §11 simulation study (200–1,000 synthetic users for "would this work at larger n?") remains optional and unchanged.
 
-### 5. Claims boundary formalized as a signed document
+### 5. Claims boundary as a standalone document
 
-Plan §1.2 listed five boundary-of-claims bullets. `docs/claims_boundary.md` expands each bullet into a short rationale and adds a signature block for supervisor + 4 students. This document is what the supervisor points at in week 9 when a student's draft overclaims. Content is not new; formality is.
+Plan §1.2 listed five boundary-of-claims bullets. `docs/claims_boundary.md` expands each bullet into a short rationale. Enforcement is via supervisor review of every draft (abstract, captions, Discussion) and team members catching slips in each other's drafts — no formal signing ceremony.
 
 ### 6. All other sections of plan v4.0 remain in force
 

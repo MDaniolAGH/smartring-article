@@ -1,5 +1,7 @@
 # Hero Figure Specification — Figure 1
 
+> **Scope.** This document specifies Figure 1 for the **journal-paper version** (full three-panel contribution figure). The **conference paper / poster (deadline 2026-05-07)** ships **Panel A only**, on the Round-2 subcohort. Panels B and C are journal-paper deliverables. Conference-version scope and timeline: `docs/notatka_dla_zespolu_pl.md`.
+
 **This amends research plan v4.0 §1.4.** The plan's Figure 1 was a single-panel "problem figure" showing that sufficiency thresholds vary across users. During WP1 we concluded that is the wrong headline: it states the problem but not the contribution. The new Figure 1 is a three-panel **contribution figure** — individual sufficiency curves (Panel A), decision timelines under three strategies (Panel B), and τᵢ as a function of a leading covariate with Mondrian strata (Panel C).
 
 Plan §9.2 requires any scope change after WP1 be signed off by supervisor and logged in the changelog. This amendment is logged in `docs/plan_v4.1_changelog.md` item 2.
@@ -43,7 +45,7 @@ Each cell is a horizontal strip with one square per night. Square color encodes 
 - **Predict, correct** — dark green
 - **Predict, incorrect** — dark red
 
-**Row labels (left margin):** participant pseudonym ("Fast (P017)", "Slow (P024)", "Non-converger (P003)", "Average (P031)") and their τᵢ. The specific pseudonyms/IDs come from the week-8 results pass, not week 1.
+**Row labels (left margin):** participant pseudonym ("Fast (P017)", "Slow (P024)", "Non-converger (P003)", "Average (P031)") and their τᵢ. The specific pseudonyms/IDs come from the final results pass on real data, not from early synthetic experiments.
 
 **Column labels (top):** strategy name + summary metric across the 4 rows (e.g., "Fixed-5 — 3/4 correct, 0 defers, 12 wrong nights").
 
@@ -56,7 +58,7 @@ Each cell is a horizontal strip with one square per night. Square color encodes 
 **What it shows.** That τᵢ is predictable from observable signal characteristics — the basis for the covariate-conditional model.
 
 **Axes.**
-- **X:** the covariate with the strongest association to τᵢ in Student 3's regression meta-model. **Placeholder:** `signal_completeness` (plan §3.4 bullet 1). The specific covariate is chosen during WP6 week 6–7 based on the regression meta-model's standardized coefficients. Candidates: `signal_completeness`, `mean_snr_temp`, `mean_snr_hr`, `cycle_regular` — see data contract §2.3.
+- **X:** the covariate with the strongest association to τᵢ in Student 3's regression meta-model. **Placeholder:** `signal_completeness` (plan §3.4 bullet 1). The specific covariate is chosen once the regression meta-model is fit on real data, based on its standardized coefficients. Candidates: `signal_completeness`, `mean_snr_temp`, `mean_snr_hr`, `cycle_regular` — see data contract §2.3.
 - **Y:** τᵢ in nights. Non-convergers marked at the top of the plot (or with a broken-axis marker labelled "no convergence").
 
 **Marks.**
@@ -80,7 +82,7 @@ Each cell is a horizontal strip with one square per night. Square color encodes 
 
 ## Pre-final QA checklist
 
-Before submission, Figure 1 is signed off against this list:
+Before submission, Figure 1 is checked against this list:
 
 - [ ] Panel A hero curves and non-converger labels match the actual computed τᵢ values (no round-number cherry-picks).
 - [ ] Panel B states are derived from `prediction_sets.parquet` and `labels.parquet` under LOSO-CV, not any other source.

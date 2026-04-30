@@ -95,23 +95,22 @@ Czas wykonania: ok. 2 godziny.
 
 ### Predykcja konformalna
 
-Notebook bazowy: `04_wp6_conformal.ipynb`. Działa end-to-end na danych syntetycznych z LOSO + per-k kalibracją + APS + fallbackiem na argmax dla pustych zbiorów.
+Notebook bazowy: `04_wp6_conformal.ipynb`. Działa end-to-end na danych syntetycznych z LOSO + per-k kalibracją + APS + fallbackiem na argmax dla pustych zbiorów. Specyfikacja roli: `docs/student3_charter.md`. Faza fundamentalna (3 milestones, async): `docs/onboarding_student3.md`.
 
 Harmonogram do 7 maja:
 
 | Dzień | Zadanie | Wynik |
 |---|---|---|
-| 1 | Lektura: plan §2.3, §2.4, §3.3, §3.4. Angelopoulos & Bates §1–3. Uruchomienie notebooków 04 i 06. | — |
-| 2 | Detektor skoku LH na `data['hormones_and_selfreport']` (lokalne maksimum > 10 mIU/mL). | `synthetic/v1/labels.parquet` (n=19, R2) |
-| 3 | Klasyfikator bazowy: regresja logistyczna na średniej nocnej temperaturze skóry, kalibracja izotoniczna. | `probability_table.parquet` |
-| 4 | Notebook 04 na prawdziwych danych. Pierwszy wykres |C_α| vs k. | Wykres + plik `prediction_sets.parquet` |
-| 5 | Iteracja, obsługa edge cases (braki nocy, dziwne rozkłady). | — |
-| 6 | Tabela porównawcza: nasza metoda vs Fixed-5. Bootstrap CI 2 000 iteracji. | Tabela |
-| 7 | Sekcja Methods + Results. | — |
-| 8 | Sekcja Introduction + Discussion + Limitations. Polerka wykresu. | — |
-| 9 | Konferencja. | — |
+| 1 | Lektura: plan §2.3, §2.4, §3.3, §3.4. Angelopoulos & Bates §1–3. Notatka jednostronicowa wg `docs/tutorial_summaries/TEMPLATE.md`. | `docs/tutorial_summaries/<imie>_angelopoulos_bates.md` |
+| 2 | Uruchomienie notebooków 06 i 04 na danych syntetycznych. Szkic hero figure Panel A (ołówek + zdjęcie). | Szkic w `docs/figures/hero_sketch_<imie>.jpg` |
+| 3 | Detektor skoku LH na `data['hormones_and_selfreport']` (lokalne maksimum > 10 mIU/mL). | `synthetic/v1/labels.parquet` (n≈19, R2) |
+| 4 | Klasyfikator bazowy: regresja logistyczna na średniej nocnej temperaturze skóry, kalibracja izotoniczna. | `probability_table.parquet` |
+| 5 | Notebook 04 na prawdziwych danych. Pierwszy wykres |C_α| vs k. Tabela porównawcza vs Fixed-5. | Wykres + `prediction_sets.parquet` + tabela |
+| 6 | Iteracja na edge cases (braki nocy, dziwne rozkłady). Bootstrap CI 2 000 iteracji. | — |
+| 7 | Pisanie krótkiego artykułu / posteru: Methods, Results, Introduction, Discussion, Limitations. Polerka wykresu. | Draft |
+| 8 | Konferencja. | — |
 
-Zakres awaryjny: punkty 2 i 3 (etykiety i klasyfikator) są stand-inami. Jeśli osoby od WP2/WP3 i WP5 dostarczą swoje wersje wcześniej — następuje podmiana ścieżek wejściowych, kod nie wymaga zmian.
+Zakres awaryjny: dni 3 i 4 (etykiety i klasyfikator) są stand-inami. Jeśli osoby od WP2/WP3 i WP5 dostarczą swoje wersje wcześniej — następuje podmiana ścieżek wejściowych, kod nie wymaga zmian.
 
 Poza zakresem konferencji (do wersji pełnej): stratyfikacja Mondriana, model regresji predykujący τᵢ, analiza longitudinalna R1→R2.
 

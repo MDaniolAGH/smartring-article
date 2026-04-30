@@ -1,8 +1,10 @@
 # Claims Boundary
 
-**Purpose.** This document is the single reference for what the paper does and does not claim. Every student signs it in week 1 and is held to it through final submission. When a draft overclaims in week 9, the supervisor points at this page.
+> **Scope.** The five boundaries below apply to **every output** of the project — conference paper / poster (deadline 2026-05-07), journal-paper version, and any intermediate writeup.
 
-**Authority.** Derived from research plan v4.0 §1.2 ("Boundary of claims"). Signed by the full team. Amendments require a new signature round.
+**Purpose.** Single reference for what the paper does and does not claim. Read once before writing any abstract, figure caption, or commit message. When a draft overclaims, the supervisor points at this page.
+
+**Authority.** Derived from research plan v4.0 §1.2 ("Boundary of claims").
 
 ---
 
@@ -48,14 +50,6 @@ If a team member catches a slip in another team member's draft, the correction h
 
 ---
 
-## Signatures
+## How this document is enforced
 
-By signing, I confirm I have read this document, understand what the paper will and will not claim, and will enforce these boundaries in my own drafts and in my review of others'.
-
-| Role | Name | Signature | Date |
-|---|---|---|---|
-| Supervisor | M. Danioł | ______________________ | __________ |
-| Student 1 (WP2/WP3) | ________________________ | ______________________ | __________ |
-| Student 2 (WP5) | ________________________ | ______________________ | __________ |
-| Student 3 (WP6) | ________________________ | ______________________ | __________ |
-| Student 4 (WP7) | ________________________ | ______________________ | __________ |
+No signing ceremony. The boundaries above are enforced through (a) supervisor review of every abstract, figure caption, and Discussion paragraph before submission, and (b) team members catching slips in each other's drafts. Anyone can flag a violation; the response is a quick edit, not a meeting.
