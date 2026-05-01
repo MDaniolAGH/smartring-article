@@ -77,7 +77,9 @@ A second async artefact — a 10-line worked example showing split conformal on 
 
 This is the milestone that unblocks you for the rest of the project — both the conference deadline and the journal-paper work.
 
-**Start here:** open `notebooks/04_wp6_conformal.ipynb`. It is the reference implementation of Milestone 3: loads the three input-contract files, runs split conformal with APS under LOSO and per-k calibration (recipe b), writes `prediction_sets.parquet` + `decisions/covariate_conditional.parquet` + τᵢ entries per the pipeline contract, and produces the |Cα|-vs-k plot. Run it, then re-implement it yourself.
+**Start here:** open `notebooks/04_wp6_conformal.ipynb`. It is a learning-by-doing notebook with five sections you implement yourself. The notebook gives you setup, data loading, the plot, and a self-check; you write the conformal logic — non-conformity scores, per-k quantile, prediction sets with empty-set fallback, τᵢ, and the decision file. Each section has the relevant equation from Angelopoulos & Bates and assertion cells that catch common bugs.
+
+If you get stuck on a section after about 30 minutes, `_internal/notebooks/04_wp6_reference.ipynb` is one possible solution — use it as a check after you have your own attempt, not as a starting point. Your code can differ stylistically from the reference; the self-check verifies your numbers match.
 
 Your Milestone 3 gate (what you send to supervisor):
 

@@ -1,3 +1,8 @@
 pandas>=2.2,<4
 numpy>=2.0,<3
 pyarrow>=17,<25
+scikit-learn>=1.4,<2
+matplotlib>=3.7,<4
+# lightgbm only needed for the real-data WP5 training branch.
+# On macOS local dev: also `brew install libomp`. Colab has it preinstalled.
+lightgbm>=4.0,<5

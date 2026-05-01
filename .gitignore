@@ -12,3 +12,9 @@ dataset_parquet/
 # Supervisor-only material; not distributed to students
 _internal/
 notebooks_from_students/
+
+# Real-data outputs (derivative of PhysioNet restricted data — do NOT commit)
+real/
+
+# Auto-generated figures from notebooks (regenerate from notebooks if needed)
+docs/figures/wp*.png

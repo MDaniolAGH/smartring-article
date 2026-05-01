@@ -74,6 +74,7 @@ notebooks/                      Per-role starter notebooks (all run end-to-end)
   04_wp6_conformal.ipynb        Conformal sufficiency layer (working reference)
   05_wp7_evaluation.ipynb       Evaluation harness starter
   06_dataset_loading.ipynb      Unified data loader tutorial
+  07_convert_dataset.ipynb      One-off raw-CSV → parquet conversion (Colab-friendly)
 
 utils/                          Library code
   dataset.py                    load_mcphases() — the team-wide data loader
@@ -100,15 +101,14 @@ dataset_parquet/                Parquet conversions of large CSVs (gitignored)
 
 The mcPHASES dataset is on PhysioNet under the **Restricted Health Data License**. Each team member must obtain their own access through the PhysioNet project page; the data **must not be redistributed**.
 
-**Place raw CSVs in `dataset/`, then convert the large ones once:**
+**Place raw CSVs in `dataset/`, then convert the large ones once. Two ways to run it:**
 
-```bash
-python scripts/convert_raw_to_parquet.py
-```
+- **Locally (CLI):** `python scripts/convert_raw_to_parquet.py`
+- **On Colab (recommended):** open `notebooks/07_convert_dataset.ipynb`, edit the `DATASET_DIR` line if your Drive path differs, run all cells.
 
-This writes ~338 MB of compressed parquet (down from 3.4 GB of CSV) for the nine files >10 MB. Smaller CSVs stay as CSV — they are short enough to inspect by hand. The conversion runs in ~30 seconds on a laptop and is idempotent.
+Both produce `dataset_parquet/` — ~340 MB of compressed parquet (down from 3.4 GB of CSV) for the nine files >10 MB. Smaller CSVs stay as CSV. The conversion runs in ~30 seconds on a laptop, 1–2 minutes on Colab, and is idempotent (re-running skips already-converted files; pass `--force` to rebuild).
 
-**On Colab:** mount Drive, place the dataset folder there, then run the same conversion command. Subsequent loads from `utils/dataset.py` finish in seconds even on the free tier. Loading the raw `heart_rate.csv` (1.9 GB) directly will exceed Colab's RAM.
+After conversion, `utils/dataset.py` finds the parquet copies automatically. Loading the raw `heart_rate.csv` (1.9 GB) directly will exceed Colab's free-tier RAM — that's the whole reason this conversion step exists.
 
 `dataset/` and `dataset_parquet/` are gitignored.
 

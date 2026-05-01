@@ -56,6 +56,7 @@ Loader normalizuje nazwy kolumn (lowercase, `id` → `participant_id`) zgodnie z
 | Plik | Funkcja |
 |---|---|
 | `notebooks/00_getting_started.ipynb` | Wprowadzenie do środowiska |
+| `notebooks/07_convert_dataset.ipynb` | **Pierwsze uruchomienie:** konwersja surowych CSV → parquet (Colab-friendly, raz po umieszczeniu danych w Drive) |
 | `notebooks/06_dataset_loading.ipynb` | Tutorial loadera, w tym migracja z `pd.read_csv` |
 | `notebooks/01_wp2_preprocessing.ipynb` | Przygotowanie danych: kohortę, valid_nights, missingness, LOSO folds |
 | `notebooks/02_wp3_endpoint.ipynb` | Konstrukcja etykiety binarnej (przed/po owulacji) z hormonów |
@@ -84,10 +85,11 @@ Wszystkie notebooki działają end-to-end na danych syntetycznych (`synthetic/v1
 
 1. Sklonować repo lokalnie lub otworzyć na Colabie.
 2. Uruchomić `notebooks/00_getting_started.ipynb`. Po wykonaniu wszystkich komórek znana jest struktura repozytorium.
-3. Uruchomić `notebooks/06_dataset_loading.ipynb`. Po wykonaniu znana jest składnia loadera i schemat dostępu do tabel.
-4. Uruchomić notebook odpowiadający przydzielonej roli (lista w sekcji 4). Po wykonaniu znany jest pełny pipeline na danych syntetycznych.
+3. **Tylko za pierwszym razem:** uruchomić `notebooks/07_convert_dataset.ipynb` po umieszczeniu mcPHASES na Drive. Konwertuje duże CSV-y do parquet (~30 s lokalnie, 1–2 min na Colabie). Idempotentne — przy kolejnych uruchomieniach nic się nie dzieje.
+4. Uruchomić `notebooks/06_dataset_loading.ipynb`. Po wykonaniu znana jest składnia loadera i schemat dostępu do tabel.
+5. Uruchomić notebook odpowiadający przydzielonej roli (lista w sekcji 4). Po wykonaniu znany jest pełny pipeline na danych syntetycznych.
 
-Czas wykonania: ok. 2 godziny.
+Czas wykonania: ok. 2 godziny (plus jednorazowo 1–2 min na konwersję parquet).
 
 ---
 
@@ -95,7 +97,11 @@ Czas wykonania: ok. 2 godziny.
 
 ### Predykcja konformalna
 
-Notebook bazowy: `04_wp6_conformal.ipynb`. Działa end-to-end na danych syntetycznych z LOSO + per-k kalibracją + APS + fallbackiem na argmax dla pustych zbiorów. Specyfikacja roli: `docs/student3_charter.md`. Faza fundamentalna (3 milestones, async): `docs/onboarding_student3.md`.
+Notebook bazowy: `04_wp6_conformal.ipynb`. **To Twoja praca — notebook ma 5 sekcji TODO, które implementujesz samodzielnie:** non-conformity scores (APS), kwantyl konformalny per-k, zbiory predykcyjne (z fallbackiem na argmax dla pustych zbiorów), τᵢ, plik decyzji. Każda sekcja ma równanie z Angelopoulos & Bates i komórki asercji do sprawdzenia poprawności. Setup, ładowanie danych, wykres i self-check są dostarczone — Twoim wkładem jest algorytm.
+
+Jeśli utkniesz na ~30 min na jakiejś sekcji, w `_internal/notebooks/04_wp6_reference.ipynb` jest jedno z możliwych rozwiązań (do podglądu *po* własnej próbie, nie jako punkt startu). Self-check w notebooku weryfikuje, że Twoje wyniki zgadzają się z oczekiwanymi statystykami.
+
+Specyfikacja roli: `docs/student3_charter.md`. Faza fundamentalna (3 milestones, async): `docs/onboarding_student3.md`.
 
 Harmonogram do 7 maja:
 
@@ -182,7 +188,7 @@ Zadania na 7 maja:
 
 | Objaw | Przyczyna | Rozwiązanie |
 |---|---|---|
-| Colab wywala pamięć przy `pd.read_csv('heart_rate.csv')` | Plik CSV za duży na 12 GB RAM | Uruchomić `python scripts/convert_raw_to_parquet.py`, używać `data.load(...)` z parquet |
+| Colab wywala pamięć przy `pd.read_csv('heart_rate.csv')` | Plik CSV za duży na 12 GB RAM | Uruchomić `notebooks/07_convert_dataset.ipynb` (Colab) lub `python scripts/convert_raw_to_parquet.py` (lokalnie); potem używać `data.load(...)` z parquet |
 | `load_mcphases()` rzuca `FileNotFoundError` | Dane w nietypowej lokalizacji | `load_mcphases(data_dir='/twoja/ścieżka')` |
 | `ImportError: utils.dataset` w notebooku | Brak `sys.path.insert(0, REPO_ROOT)` | Komórka setup z notebooka 00 |
 | `ContractViolation` z walidatora | Niezgodne typy lub kolumny | Sprawdzić schemę w `data_contract_v1.md`, użyć `df.astype({...})` przed `to_parquet` |
